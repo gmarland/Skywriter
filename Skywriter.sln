@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywriter", "Skywriter\Skywriter.csproj", "{2A483DD0-FAF1-4F17-9961-DD13596AE56C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywriter.Model", "Skywriter.Model\Skywriter.Model.csproj", "{0EEABC92-CC15-45B7-8818-1D2051A092A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywriter.Webservices", "Skywriter.Webservices\Skywriter.Webservices.csproj", "{9776B50E-A677-4FA0-8BEA-1E79B9762C1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywriter.Helpers", "Skywriter.Helpers\Skywriter.Helpers.csproj", "{20E821F7-F96E-4CFE-B4B9-1CA2241D0EDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A483DD0-FAF1-4F17-9961-DD13596AE56C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A483DD0-FAF1-4F17-9961-DD13596AE56C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A483DD0-FAF1-4F17-9961-DD13596AE56C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A483DD0-FAF1-4F17-9961-DD13596AE56C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EEABC92-CC15-45B7-8818-1D2051A092A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EEABC92-CC15-45B7-8818-1D2051A092A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EEABC92-CC15-45B7-8818-1D2051A092A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EEABC92-CC15-45B7-8818-1D2051A092A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9776B50E-A677-4FA0-8BEA-1E79B9762C1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9776B50E-A677-4FA0-8BEA-1E79B9762C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9776B50E-A677-4FA0-8BEA-1E79B9762C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9776B50E-A677-4FA0-8BEA-1E79B9762C1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20E821F7-F96E-4CFE-B4B9-1CA2241D0EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E821F7-F96E-4CFE-B4B9-1CA2241D0EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20E821F7-F96E-4CFE-B4B9-1CA2241D0EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20E821F7-F96E-4CFE-B4B9-1CA2241D0EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

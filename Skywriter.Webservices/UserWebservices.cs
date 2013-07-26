@@ -15,9 +15,18 @@ namespace Skywriter.Webservices
     {
         public static String CLIPBOARD_URL;
 
-        public static ClipUser GetUser(String id)
+        public static SkywriterUser GetUser(String id)
         {
-            RestClient client = new RestClient(CLIPBOARD_URL.TrimEnd(new char[] { '/' }));
+            RestClient client;
+
+            try
+            {
+                client = new RestClient(CLIPBOARD_URL.TrimEnd(new char[] { '/' }));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
             RestRequest request = new RestRequest("users", Method.GET);
             request.AddParameter("id", id);
@@ -36,7 +45,7 @@ namespace Skywriter.Webservices
 
                         JObject user = JObject.Parse(returnContent);
 
-                        ClipUser clipUser = new ClipUser();
+                        SkywriterUser clipUser = new SkywriterUser();
                         clipUser.Id = user["Id"].ToString();
                         clipUser.Name = user["Name"].ToString();
 
@@ -51,9 +60,18 @@ namespace Skywriter.Webservices
             return null;
         }
 
-        public static ClipUser Authenticate(String name, String password)
+        public static SkywriterUser Authenticate(String name, String password)
         {
-            RestClient client = new RestClient(CLIPBOARD_URL.TrimEnd(new char[] { '/' }));
+            RestClient client;
+
+            try
+            {
+                client = new RestClient(CLIPBOARD_URL.TrimEnd(new char[] { '/' }));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
             RestRequest request = new RestRequest("users", Method.GET);
             request.AddParameter("name", name);
@@ -71,7 +89,7 @@ namespace Skywriter.Webservices
                     {
                         JObject user = JObject.Parse(returnContent);
 
-                        ClipUser clipUser = new ClipUser();
+                        SkywriterUser clipUser = new SkywriterUser();
                         clipUser.Id = user["Id"].ToString();
                         clipUser.Name = user["Name"].ToString();
 
@@ -86,9 +104,18 @@ namespace Skywriter.Webservices
             return null;
         }
 
-        public static ClipUser CreateUser(String name, String password)
+        public static SkywriterUser CreateUser(String name, String password)
         {
-            RestClient client = new RestClient(CLIPBOARD_URL.TrimEnd(new char[] { '/' }));
+            RestClient client;
+
+            try
+            {
+                client = new RestClient(CLIPBOARD_URL.TrimEnd(new char[] { '/' }));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
             RestRequest request = new RestRequest("users", Method.POST);
             request.AddParameter("name", name);
@@ -102,7 +129,7 @@ namespace Skywriter.Webservices
 
                 if ((returnContent != null) && (returnContent != "null"))
                 {
-                    ClipUser clipUser = new ClipUser();
+                    SkywriterUser clipUser = new SkywriterUser();
                     clipUser.Id = returnContent;
                     clipUser.Name = name;
 

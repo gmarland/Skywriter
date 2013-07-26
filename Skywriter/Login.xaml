@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:controls="clr-namespace:Skywriter.Controls"
-        Title="Login">
+        Title="Skywriter - Login">
     <DockPanel Style="{StaticResource PanelStyle}">
         <StackPanel Name="PanelHeader" DockPanel.Dock="Top" Orientation="Vertical">
             <Label Name="PanelHeaderTxt" Content="Log in to Clipboard" Style="{StaticResource PanelHeader}" />

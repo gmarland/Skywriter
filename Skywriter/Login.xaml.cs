@@ -47,7 +47,7 @@ namespace Skywriter
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
-            ClipUser authenticatedUser = UserWebservices.Authenticate(UserName.Text, Password.Text);
+            SkywriterUser authenticatedUser = UserWebservices.Authenticate(UserName.Text, Password.Text);
 
             if (authenticatedUser != null)
             {

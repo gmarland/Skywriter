@@ -21,7 +21,7 @@ namespace Skywriter.Helpers
             }
         }
 
-        public static void SerializeUserDetails(ClipUser clipUser)
+        public static void SerializeUserDetails(SkywriterUser clipUser)
         {
             String detailsFile = AppDomain.CurrentDomain.BaseDirectory + "uDetail.bin";
 
@@ -44,9 +44,9 @@ namespace Skywriter.Helpers
             }
         }
 
-        public static ClipUser DeserializeUserDetails()
+        public static SkywriterUser DeserializeUserDetails()
         {
-            ClipUser clipUser = null;
+            SkywriterUser clipUser = null;
 
             String detailsFile = AppDomain.CurrentDomain.BaseDirectory + "uDetail.bin";
 
@@ -59,7 +59,7 @@ namespace Skywriter.Helpers
 
                     try
                     {
-                        clipUser = (ClipUser)bf.Deserialize(fs);
+                        clipUser = (SkywriterUser)bf.Deserialize(fs);
                     }
                     catch (Exception ex)
                     {

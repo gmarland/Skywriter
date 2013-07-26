@@ -47,7 +47,7 @@ namespace Skywriter
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
-            ClipUser newUser = UserWebservices.CreateUser(UserName.Text, Password.Text);
+            SkywriterUser newUser = UserWebservices.CreateUser(UserName.Text, Password.Text);
 
             if (newUser != null)
             {

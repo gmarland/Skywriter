@@ -1,4 +1,6 @@
 ﻿using Skywriter.Helpers;
+using Skywriter.Model;
+using Skywriter.Webservices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,11 +29,25 @@ namespace Skywriter
             this.ShowsNavigationUI = false;
 
             InitializeComponent();
+            
+            SkywriterUser clipUser = SecurityHelper.DeserializeUserDetails();
 
-            if (SecurityHelper.DeserializeUserDetails() != null)
+            if (clipUser != null)
             {
-                Clipboard clipboard = new Clipboard();
-                this.NavigationService.Navigate(clipboard);
+                clipUser = UserWebservices.GetUser(clipUser.Id);
+
+                if (clipUser != null)
+                {
+                    Clipboard clipboard = new Clipboard();
+                    this.NavigationService.Navigate(clipboard);
+                }
+                else
+                {
+                    SecurityHelper.DeleteUserDetails();
+
+                    UserLoginSelect userLoginSelect = new UserLoginSelect();
+                    this.NavigationService.Navigate(userLoginSelect);
+                }
             }
         }
 

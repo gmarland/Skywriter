@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Skywriter.Model
 {
     [Serializable]
-    public class ClipUser
+    public class SkywriterUser
     {
         public String Id { get; set; }
 

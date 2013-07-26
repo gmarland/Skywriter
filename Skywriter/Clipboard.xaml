@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         mc:Ignorable="d" 
         d:DesignHeight="350" d:DesignWidth="300"
-        Title="Clipboard">
+        Title="Skywriter">
     <DockPanel Style="{StaticResource PanelStyle}">
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Vertical">

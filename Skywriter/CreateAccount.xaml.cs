@@ -30,8 +30,8 @@ namespace Skywriter
         {
             InitializeComponent();
 
-            Application.Current.MainWindow.MinHeight = 245;
-            Application.Current.MainWindow.Height = 245;
+            Application.Current.MainWindow.MinHeight = 210;
+            Application.Current.MainWindow.Height = 210;
 
             UserWebservices.CLIPBOARD_URL = Properties.Settings.Default.RESTServerLocation;
 
@@ -47,14 +47,14 @@ namespace Skywriter
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
-            SkywriterUser newUser = UserWebservices.CreateUser(UserName.Text, Password.Text);
+            SkywriterUser newUser = UserWebservices.CreateUser(UserName.Text, Password.Password);
 
             if (newUser != null)
             {
                 SecurityHelper.SerializeUserDetails(newUser);
 
-                Clipboard clipboard = new Clipboard();
-                this.NavigationService.Navigate(clipboard);
+                SkywriterBoard skywriterBoard = new SkywriterBoard();
+                this.NavigationService.Navigate(skywriterBoard);
             }
         }
     }

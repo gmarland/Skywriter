@@ -38,8 +38,8 @@ namespace Skywriter
 
                 if (clipUser != null)
                 {
-                    Clipboard clipboard = new Clipboard();
-                    this.NavigationService.Navigate(clipboard);
+                    SkywriterBoard skywriterBoard = new SkywriterBoard();
+                    this.NavigationService.Navigate(skywriterBoard);
                 }
                 else
                 {
@@ -53,8 +53,11 @@ namespace Skywriter
 
         private void OnClose(object sender, CancelEventArgs args)
         {
-            args.Cancel = true;
-            this.WindowState = WindowState.Minimized;
+            if (this.WindowState != WindowState.Minimized)
+            {
+                args.Cancel = true;
+                this.WindowState = WindowState.Minimized;
+            }
         }
     }
 }

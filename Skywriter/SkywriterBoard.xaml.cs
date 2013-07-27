@@ -21,18 +21,17 @@ using System.Windows.Shapes;
 
 namespace Skywriter
 {
-    public partial class Clipboard : Page
+    public partial class SkywriterBoard : Page
     {
         private SkywriterUser _skywriterUser;
 
-        private ClipboardModel _clipboardModel;
+        private SkywriterBoardModel _skywriterBoardModel;
 
         private HubConnection _connection;
         private IHubProxy _proxy;
 
-        public Clipboard()
+        public SkywriterBoard()
         {
-
             UserWebservices.CLIPBOARD_URL = Properties.Settings.Default.RESTServerLocation;
 
             _skywriterUser = SecurityHelper.DeserializeUserDetails();
@@ -52,9 +51,9 @@ namespace Skywriter
                 {
                 }
 
-                _proxy = _connection.CreateHubProxy("Clipboard");
+                _proxy = _connection.CreateHubProxy("SkywriterBoard");
 
-                _proxy.On<String>("CopiedClipboardItem", (clipboardText) =>
+                _proxy.On<String>("CopiedSkywriterItem", (clipboardText) =>
                 {
                     try
                     {
@@ -84,59 +83,59 @@ namespace Skywriter
                 Application.Current.MainWindow.Height = 390;
                 Application.Current.MainWindow.Title = "Skywriter - " + _skywriterUser.Name;
 
-                _clipboardModel = new ClipboardModel();
-                DataContext = _clipboardModel;
+                _skywriterBoardModel = new SkywriterBoardModel();
+                DataContext = _skywriterBoardModel;
             }
         }
 
         private void send_Click(object sender, RoutedEventArgs e)
         {
-            if (WritetoClipboardContent.Text.Length > 0)
+            if (WriteToSkywriterContent.Text.Length > 0)
             {
-                SetClipboardText(WritetoClipboardContent.Text);
+                SetClipboardText(WriteToSkywriterContent.Text);
 
-                _proxy.Invoke("CopyClipboardItem", _skywriterUser.Id, EncryptionHelper.Encrypt(WritetoClipboardContent.Text, "undeclared", true));
+                _proxy.Invoke("CopySkywriterItem", _skywriterUser.Id, EncryptionHelper.Encrypt(WriteToSkywriterContent.Text, "undeclared", true));
 
-                WritetoClipboardContent.Text = String.Empty;
-                WritetoClipboardContent.Focus();
+                WriteToSkywriterContent.Text = String.Empty;
+                WriteToSkywriterContent.Focus();
             }
         }
 
         private void SetClipboardText(String text)
         {
             ClipboardHelper.CopyToClipboard(text);
-            _clipboardModel._SharedClipboardContent = text;
+            _skywriterBoardModel._SharedSkywriterContent = text;
         }
     }
 
-    public class ClipboardModel : INotifyPropertyChanged
+    public class SkywriterBoardModel : INotifyPropertyChanged
     {
-        private String _sharedClipboardContent;
-        private String _writetoClipboardContent;
+        private String _sharedSkywriterContent;
+        private String _writeToSkywriterContent;
 
-        public String _SharedClipboardContent
+        public String _SharedSkywriterContent
         {
-            get { return _sharedClipboardContent; }
+            get { return _sharedSkywriterContent; }
             set
             {
-                if (value == _sharedClipboardContent)
+                if (value == _sharedSkywriterContent)
                     return;
 
-                _sharedClipboardContent = value;
-                OnPropertyChanged("_SharedClipboardContent");
+                _sharedSkywriterContent = value;
+                OnPropertyChanged("_SharedSkywriterContent");
             }
         }
 
-        public String _WritetoClipboardContent
+        public String _WriteToSkywriterContent
         {
-            get { return _writetoClipboardContent; }
+            get { return _writeToSkywriterContent; }
             set
             {
-                if (value == _writetoClipboardContent)
+                if (value == _writeToSkywriterContent)
                     return;
 
-                _writetoClipboardContent = value;
-                OnPropertyChanged("_WritetoClipboardContent");
+                _writeToSkywriterContent = value;
+                OnPropertyChanged("_WriteToSkywriterContent");
             }
         }
 

@@ -7,7 +7,7 @@
         Title="Skywriter - Login">
     <DockPanel Style="{StaticResource PanelStyle}">
         <StackPanel Name="PanelHeader" DockPanel.Dock="Top" Orientation="Vertical">
-            <Label Name="PanelHeaderTxt" Content="Log in to Clipboard" Style="{StaticResource PanelHeader}" />
+            <Label Name="PanelHeaderTxt" Content="Log in to Skywriter" Style="{StaticResource PanelHeader}" />
         </StackPanel>
         <StackPanel Name="PanelName" DockPanel.Dock="Bottom" Orientation="Vertical" Style="{StaticResource PanelNavigation}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -34,14 +34,7 @@
                             </Border>
                             <Border Style="{StaticResource PanelItemAdditionalPadding}">
                                 <AdornerDecorator>
-                                    <TextBox Name="Password" Style="{StaticResource StandardTextbox}">
-                                        <controls:WatermarkService.Watermark>
-                                            <TextBlock>Enter your password</TextBlock>
-                                        </controls:WatermarkService.Watermark>
-                                        <TextBox.Text>
-                                            <Binding Path="UserPassword" UpdateSourceTrigger="PropertyChanged" />
-                                        </TextBox.Text>
-                                    </TextBox>
+                                    <PasswordBox  Name="Password" />
                                 </AdornerDecorator>
                             </Border>
                         </StackPanel>

@@ -34,14 +34,7 @@
                             </Border>
                             <Border Style="{StaticResource PanelItemAdditionalPadding}">
                                 <AdornerDecorator>
-                                    <TextBox Name="Password" Style="{StaticResource StandardTextbox}">
-                                        <controls:WatermarkService.Watermark>
-                                            <TextBlock>Enter a password</TextBlock>
-                                        </controls:WatermarkService.Watermark>
-                                        <TextBox.Text>
-                                            <Binding Path="UserPassword" UpdateSourceTrigger="PropertyChanged" />
-                                        </TextBox.Text>
-                                    </TextBox>
+                                    <PasswordBox  Name="Password" />
                                 </AdornerDecorator>
                             </Border>
                         </StackPanel>

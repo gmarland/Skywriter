@@ -47,14 +47,14 @@ namespace Skywriter
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
-            SkywriterUser authenticatedUser = UserWebservices.Authenticate(UserName.Text, Password.Text);
+            SkywriterUser authenticatedUser = UserWebservices.Authenticate(UserName.Text, Password.Password);
 
             if (authenticatedUser != null)
             {
                 SecurityHelper.SerializeUserDetails(authenticatedUser);
 
-                Clipboard clipboard = new Clipboard();
-                this.NavigationService.Navigate(clipboard);
+                SkywriterBoard skywriterBoard = new SkywriterBoard();
+                this.NavigationService.Navigate(skywriterBoard);
             }
         }
     }

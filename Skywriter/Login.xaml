@@ -6,8 +6,8 @@
         xmlns:controls="clr-namespace:Skywriter.Controls"
         Title="Skywriter - Login">
     <DockPanel Style="{StaticResource PanelStyle}">
-        <StackPanel Name="PanelHeader" DockPanel.Dock="Top" Orientation="Vertical">
-            <Label Name="PanelHeaderTxt" Content="Log in to Skywriter" Style="{StaticResource PanelHeader}" />
+        <StackPanel Name="PanelHeader" DockPanel.Dock="Top" Orientation="Vertical" Style="{StaticResource PanelHeader}">
+            <Label Name="PanelHeaderTxt" Content="Log in to Skywriter" Style="{StaticResource PanelHeaderText}" />
         </StackPanel>
         <StackPanel Name="PanelName" DockPanel.Dock="Bottom" Orientation="Vertical" Style="{StaticResource PanelNavigation}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -34,7 +34,7 @@
                             </Border>
                             <Border Style="{StaticResource PanelItemAdditionalPadding}">
                                 <AdornerDecorator>
-                                    <PasswordBox  Name="Password" />
+                                    <PasswordBox  Name="Password" Style="{StaticResource StandardPasswordBox}" />
                                 </AdornerDecorator>
                             </Border>
                         </StackPanel>

@@ -47,14 +47,32 @@ namespace Skywriter
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
-            SkywriterUser authenticatedUser = UserWebservices.Authenticate(UserName.Text, Password.Password);
-
-            if (authenticatedUser != null)
+            if ((!String.IsNullOrEmpty(UserName.Text)) && (!String.IsNullOrEmpty(Password.Password)))
             {
-                SecurityHelper.SerializeUserDetails(authenticatedUser);
+                LoginUserResult loginUserResult;
 
-                SkywriterBoard skywriterBoard = new SkywriterBoard();
-                this.NavigationService.Navigate(skywriterBoard);
+                SkywriterUser authenticatedUser = UserWebservices.Authenticate(UserName.Text, Password.Password, out loginUserResult);
+
+                if (authenticatedUser != null)
+                {
+                    SecurityHelper.SerializeUserDetails(authenticatedUser);
+
+                    SkywriterBoard skywriterBoard = new SkywriterBoard();
+                    this.NavigationService.Navigate(skywriterBoard);
+                }
+                else
+                {
+                    Password.Password = String.Empty;
+
+                    if (loginUserResult == LoginUserResult.NotFound)
+                    {
+                        MessageBox.Show("We were unable to find your account in Skywriter", "Error", MessageBoxButton.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("We were unable to connect to Skywriter", "Error", MessageBoxButton.OK);
+                    }
+                }
             }
         }
     }

@@ -13,6 +13,8 @@ namespace Skywriter.Webservices
 {
     public class UserWebservices
     {
+        private static readonly String PASSWORD_SALT = "gdog";
+
         public static String CLIPBOARD_URL;
 
         public static SkywriterUser GetUser(String id)
@@ -60,7 +62,7 @@ namespace Skywriter.Webservices
             return null;
         }
 
-        public static SkywriterUser Authenticate(String name, String password)
+        public static SkywriterUser Authenticate(String name, String password, out LoginUserResult loginUserResult)
         {
             RestClient client;
 
@@ -70,12 +72,13 @@ namespace Skywriter.Webservices
             }
             catch (Exception ex)
             {
+                loginUserResult = LoginUserResult.ErroredConnection;
                 return null;
             }
 
             RestRequest request = new RestRequest("users", Method.GET);
             request.AddParameter("name", name);
-            request.AddParameter("password", EncryptionHelper.Hash(password, "gdog"));
+            request.AddParameter("password", EncryptionHelper.Hash(password, PASSWORD_SALT));
 
             try
             {
@@ -93,18 +96,30 @@ namespace Skywriter.Webservices
                         clipUser.Id = user["Id"].ToString();
                         clipUser.Name = user["Name"].ToString();
 
+                        loginUserResult = LoginUserResult.Successful;
+
                         return clipUser;
                     }
+                    else
+                    {
+                        loginUserResult = LoginUserResult.NotFound;
+                        return null;
+                    }
+                }
+                else
+                {
+                    loginUserResult = LoginUserResult.ErroredConnection;
+                    return null;
                 }
             }
             catch (Exception ex)
             {
+                loginUserResult = LoginUserResult.ErroredConnection;
+                return null;
             }
-
-            return null;
         }
 
-        public static SkywriterUser CreateUser(String name, String password)
+        public static SkywriterUser CreateUser(String name, String password, out CreateUserResult createUserResult)
         {
             RestClient client;
 
@@ -114,12 +129,13 @@ namespace Skywriter.Webservices
             }
             catch (Exception ex)
             {
+                createUserResult = CreateUserResult.ErroredConnection;
                 return null;
             }
 
             RestRequest request = new RestRequest("users", Method.POST);
             request.AddParameter("name", name);
-            request.AddParameter("password", EncryptionHelper.Hash(password, "gdog"));
+            request.AddParameter("password", EncryptionHelper.Hash(password, PASSWORD_SALT));
 
             try
             {
@@ -133,14 +149,21 @@ namespace Skywriter.Webservices
                     clipUser.Id = returnContent;
                     clipUser.Name = name;
 
+                    createUserResult = CreateUserResult.Successful;
+
                     return clipUser;
+                }
+                else
+                {
+                    createUserResult = CreateUserResult.AlreadyExisting;
+                    return null;
                 }
             }
             catch (Exception ex)
             {
+                createUserResult = CreateUserResult.ErroredConnection;
+                return null;
             }
-
-            return null;
         }
     }
 }

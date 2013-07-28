@@ -34,6 +34,8 @@ namespace Skywriter
 
             if (clipUser != null)
             {
+                UserWebservices.CLIPBOARD_URL = Properties.Settings.Default.RESTServerLocation;
+
                 clipUser = UserWebservices.GetUser(clipUser.Id);
 
                 if (clipUser != null)

@@ -23,6 +23,8 @@ namespace Skywriter
 {
     public partial class SkywriterBoard : Page
     {
+        private static readonly String MESSAGE_SALT = "sdog";
+
         private SkywriterUser _skywriterUser;
 
         private SkywriterBoardModel _skywriterBoardModel;
@@ -57,15 +59,20 @@ namespace Skywriter
                 {
                     try
                     {
-                        clipboardText = EncryptionHelper.Decrypt(clipboardText, "undeclared", true);
+                        clipboardText = EncryptionHelper.Decrypt(clipboardText, MESSAGE_SALT, true);
 
-                        Thread newThread = new Thread(() => SetClipboardText(clipboardText));
+                        Thread newThread = new Thread(() => SetBoardText(clipboardText));
                         newThread.SetApartmentState(ApartmentState.STA);
                         newThread.Start();
                     }
                     catch (Exception ex)
                     {
                     }
+                });
+
+                _proxy.On("ClearSkywriterBoard", () =>
+                {
+                    _skywriterBoardModel._SharedSkywriterContent = String.Empty;
                 });
 
                 try
@@ -79,8 +86,8 @@ namespace Skywriter
 
                 InitializeComponent();
 
-                Application.Current.MainWindow.MinHeight = 390;
-                Application.Current.MainWindow.Height = 390;
+                Application.Current.MainWindow.MinHeight = 405;
+                Application.Current.MainWindow.Height = 405;
                 Application.Current.MainWindow.Title = "Skywriter - " + _skywriterUser.Name;
 
                 _skywriterBoardModel = new SkywriterBoardModel();
@@ -88,23 +95,38 @@ namespace Skywriter
             }
         }
 
+        private void clear_Click(object sender, RoutedEventArgs e)
+        {
+            _skywriterBoardModel._SharedSkywriterContent = String.Empty;
+            _proxy.Invoke("ClearSkywriterBoard", _skywriterUser.Id, true);
+        }
+
         private void send_Click(object sender, RoutedEventArgs e)
         {
             if (WriteToSkywriterContent.Text.Length > 0)
             {
-                SetClipboardText(WriteToSkywriterContent.Text);
+                SetBoardText(WriteToSkywriterContent.Text);
 
                 _proxy.Invoke("CopySkywriterItem", _skywriterUser.Id, EncryptionHelper.Encrypt(WriteToSkywriterContent.Text, "undeclared", true));
 
                 WriteToSkywriterContent.Text = String.Empty;
-                WriteToSkywriterContent.Focus();
             }
+
+            WriteToSkywriterContent.Focus();
         }
 
-        private void SetClipboardText(String text)
+        private void SetBoardText(String text)
         {
             ClipboardHelper.CopyToClipboard(text);
             _skywriterBoardModel._SharedSkywriterContent = text;
+        }
+
+        private void logout_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SecurityHelper.DeleteUserDetails();
+
+            UserLoginSelect userLoginSelect = new UserLoginSelect();
+            this.NavigationService.Navigate(userLoginSelect);
         }
     }
 

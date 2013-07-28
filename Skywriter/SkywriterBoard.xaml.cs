@@ -98,7 +98,9 @@ namespace Skywriter
         private void clear_Click(object sender, RoutedEventArgs e)
         {
             _skywriterBoardModel._SharedSkywriterContent = String.Empty;
-            _proxy.Invoke("ClearSkywriterBoard", _skywriterUser.Id, true);
+            _proxy.Invoke("ClearSkywriterBoard", _skywriterUser.Id);
+
+            WriteToSkywriterContent.Focus();
         }
 
         private void send_Click(object sender, RoutedEventArgs e)
@@ -107,7 +109,7 @@ namespace Skywriter
             {
                 SetBoardText(WriteToSkywriterContent.Text);
 
-                _proxy.Invoke("CopySkywriterItem", _skywriterUser.Id, EncryptionHelper.Encrypt(WriteToSkywriterContent.Text, "undeclared", true));
+                _proxy.Invoke("CopySkywriterItem", _skywriterUser.Id, EncryptionHelper.Encrypt(WriteToSkywriterContent.Text, MESSAGE_SALT, true));
 
                 WriteToSkywriterContent.Text = String.Empty;
             }
@@ -117,7 +119,6 @@ namespace Skywriter
 
         private void SetBoardText(String text)
         {
-            ClipboardHelper.CopyToClipboard(text);
             _skywriterBoardModel._SharedSkywriterContent = text;
         }
 

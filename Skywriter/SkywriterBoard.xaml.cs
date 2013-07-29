@@ -23,7 +23,9 @@ namespace Skywriter
 {
     public partial class SkywriterBoard : Page
     {
-        private static readonly String MESSAGE_SALT = "sdog";
+        public static Boolean IsClosing = false;
+
+        private static readonly String MESSAGE_SALT = "sunny";
 
         private SkywriterUser _skywriterUser;
 
@@ -35,6 +37,8 @@ namespace Skywriter
         public SkywriterBoard()
         {
             UserWebservices.CLIPBOARD_URL = Properties.Settings.Default.RESTServerLocation;
+
+            IsClosing = false;
 
             _skywriterUser = SecurityHelper.DeserializeUserDetails();
 
@@ -74,6 +78,21 @@ namespace Skywriter
                 {
                     _skywriterBoardModel._SharedSkywriterContent = String.Empty;
                 });
+
+                _connection.Closed += () => 
+                {
+                    if (!IsClosing)
+                    {
+                        try
+                        {
+                            _connection.Start().Wait();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                };
 
                 try
                 {

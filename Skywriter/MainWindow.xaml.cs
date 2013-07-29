@@ -60,6 +60,10 @@ namespace Skywriter
                 args.Cancel = true;
                 this.WindowState = WindowState.Minimized;
             }
+            else
+            {
+                SkywriterBoard.IsClosing = true;
+            }
         }
     }
 }

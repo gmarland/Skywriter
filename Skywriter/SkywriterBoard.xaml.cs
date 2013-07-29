@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Skywriter
 {
@@ -108,7 +109,27 @@ namespace Skywriter
             _skywriterBoardModel._SharedSkywriterContent = String.Empty;
             _proxy.Invoke("ClearSkywriterBoard", _skywriterUser.Id);
 
-            WriteToSkywriterContent.Focus();
+            SharedSkywriterContent.Focus();
+        }
+
+        private void save_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+
+            dlg.FileName = "Skywriter";
+            dlg.DefaultExt = ".text";
+            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                String filename = dlg.FileName;
+
+                File.WriteAllText(filename, _skywriterBoardModel._SharedSkywriterContent);
+            }
+
+            SharedSkywriterContent.Focus();
         }
 
         private void send_Click(object sender, RoutedEventArgs e)

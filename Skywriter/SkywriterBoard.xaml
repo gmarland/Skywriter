@@ -30,8 +30,15 @@
                                     </TextBox>
                                 </AdornerDecorator>
                             </Border>
-                            <Border HorizontalAlignment="Right" Style="{StaticResource PanelItemNavPadding}">
-                                <Button Name="ClearBtn" Content="Clear" Click="clear_Click" Width="75" Margin="0,0,5,0" Style="{StaticResource StandardButton}"/>
+                            <Border Style="{StaticResource PanelItemNavPadding}" HorizontalAlignment="Stretch">
+                                <Grid Width="Auto">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Name="ClearBtn" Grid.Column="0" Content="Clear" HorizontalAlignment="Left" Click="clear_Click" Width="75" Margin="10,0,0,0" Style="{StaticResource StandardButton}"/>
+                                    <Button Name="SaveBtn" Grid.Column="1" Content="Save" HorizontalAlignment="Right" Click="save_Click" Width="75" Margin="0,0,5,0" Style="{StaticResource StandardButton}"/>
+                                </Grid>
                             </Border>
                         </StackPanel>
                     </Border>

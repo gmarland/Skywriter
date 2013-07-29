@@ -8,6 +8,7 @@
                 <Setter Property="Cursor" Value="Hand"/>
             </Trigger>
         </Style.Triggers>
+        <Setter Property="Margin" Value="0,2,0,0" />
     </Style>
     
     <Style x:Key="PanelBorderStyle" TargetType="Border">
@@ -25,7 +26,7 @@
         <Setter Property="Width" Value="Auto" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="Margin" Value="7,18,0,0" />
+        <Setter Property="Margin" Value="7,18,8,0" />
     </Style>
 
     <Style x:Key="PanelHeaderText" TargetType="Label">
@@ -74,6 +75,15 @@
         <Setter Property="Background" Value="#E9E9E9" />
     </Style>
 
+    <Style x:Key="RefreshButton" TargetType="Image">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Margin" Value="0,4,0,0" />
+    </Style>
+    
     <Style x:Key="StandardButton" TargetType="Button">
         <Setter Property="Background" Value="#003366" />
         <Setter Property="BorderBrush" Value="#00274F" />

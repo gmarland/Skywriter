@@ -25,7 +25,7 @@ namespace Skywriter
     {
         public static Boolean IsClosing = false;
 
-        private static readonly String MESSAGE_SALT = "";
+        private static readonly String MESSAGE_SALT = "sunny";
 
         private SkywriterUser _skywriterUser;
 
@@ -128,6 +128,30 @@ namespace Skywriter
         private void SetBoardText(String text)
         {
             _skywriterBoardModel._SharedSkywriterContent = text;
+        }
+
+        private void refresh_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                IsClosing = true;
+                
+                _connection.Stop();
+
+                _connection = new HubConnection(Properties.Settings.Default.SocketServerLocation, "userId=" + _skywriterUser.Id);
+
+                _proxy = GenerateProxy();
+
+                _connection.Start().Wait();
+
+                IsClosing = false;
+
+                MessageBox.Show("Your connection has been refreshed", "Success", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Your connection could not be refreshed", "Error", MessageBoxButton.OK);
+            }
         }
 
         private void logout_MouseUp(object sender, MouseButtonEventArgs e)

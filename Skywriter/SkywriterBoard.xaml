@@ -14,7 +14,7 @@
                         <ColumnDefinition Width="16"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Name="SharedSkywriterTxt" Content="Shared" Style="{StaticResource PanelHeaderText}" />
-                    <Image Grid.Column="1" Height="16" Width="16" Source="/Images/logout.png" Style="{StaticResource LogoutButton}" MouseUp="logout_MouseUp" />
+                    <Image Grid.Column="1" Height="16" Width="16" Source="/Images/logout.png" ToolTip="Log Out" Style="{StaticResource LogoutButton}" MouseUp="logout_MouseUp" />
                 </Grid>
             </StackPanel>
             <Border Style="{StaticResource PanelBorderStyle}">
@@ -38,7 +38,14 @@
                 </Border>
             </Border>
             <StackPanel Orientation="Vertical" Style="{StaticResource PanelSubheader}">
-                <Label Name="WritetoSkywriterTxt" Content="Write to Shared" Style="{StaticResource PanelHeaderText}"  />
+                <Grid Width="Auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Name="WritetoSkywriterTxt" Content="Write to Shared" Style="{StaticResource PanelHeaderText}"  />
+                    <Image Grid.Column="1" Height="16" Width="16" Source="/Images/refresh.png" ToolTip="Refresh my Connection" Style="{StaticResource RefreshButton}" MouseUp="refresh_MouseUp" />
+                </Grid>
             </StackPanel>
             <Border Style="{StaticResource PanelBorderStyle}">
                 <Border Style="{StaticResource PanelItemBorder}">

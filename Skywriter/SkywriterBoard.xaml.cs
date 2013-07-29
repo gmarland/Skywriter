@@ -25,7 +25,7 @@ namespace Skywriter
     {
         public static Boolean IsClosing = false;
 
-        private static readonly String MESSAGE_SALT = "sunny";
+        private static readonly String MESSAGE_SALT = "";
 
         private SkywriterUser _skywriterUser;
 
@@ -57,42 +57,7 @@ namespace Skywriter
                 {
                 }
 
-                _proxy = _connection.CreateHubProxy("SkywriterBoard");
-
-                _proxy.On<String>("CopiedSkywriterItem", (clipboardText) =>
-                {
-                    try
-                    {
-                        clipboardText = EncryptionHelper.Decrypt(clipboardText, MESSAGE_SALT, true);
-
-                        Thread newThread = new Thread(() => SetBoardText(clipboardText));
-                        newThread.SetApartmentState(ApartmentState.STA);
-                        newThread.Start();
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                });
-
-                _proxy.On("ClearSkywriterBoard", () =>
-                {
-                    _skywriterBoardModel._SharedSkywriterContent = String.Empty;
-                });
-
-                _connection.Closed += () => 
-                {
-                    if (!IsClosing)
-                    {
-                        try
-                        {
-                            _connection.Start().Wait();
-                        }
-                        catch (Exception ex)
-                        {
-
-                        }
-                    }
-                };
+                _proxy = GenerateProxy();
 
                 try
                 {
@@ -111,6 +76,30 @@ namespace Skywriter
 
                 _skywriterBoardModel = new SkywriterBoardModel();
                 DataContext = _skywriterBoardModel;
+
+                _connection.Reconnected += () =>
+                {
+                    _proxy.Invoke("ReconnectClient", _skywriterUser.Id);
+                };
+
+                _connection.Closed += () =>
+                {
+                    if (!IsClosing)
+                    {
+                        try
+                        {
+                            _connection = new HubConnection(Properties.Settings.Default.SocketServerLocation, "userId=" + _skywriterUser.Id);
+
+                            _proxy = GenerateProxy();
+
+                            _connection.Start().Wait();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                };
             }
         }
 
@@ -147,6 +136,33 @@ namespace Skywriter
 
             UserLoginSelect userLoginSelect = new UserLoginSelect();
             this.NavigationService.Navigate(userLoginSelect);
+        }
+
+        private IHubProxy GenerateProxy()
+        {
+            IHubProxy proxy = _connection.CreateHubProxy("SkywriterBoard");
+
+            proxy.On<String>("CopiedSkywriterItem", (clipboardText) =>
+            {
+                try
+                {
+                    clipboardText = EncryptionHelper.Decrypt(clipboardText, MESSAGE_SALT, true);
+
+                    Thread newThread = new Thread(() => SetBoardText(clipboardText));
+                    newThread.SetApartmentState(ApartmentState.STA);
+                    newThread.Start();
+                }
+                catch (Exception ex)
+                {
+                }
+            });
+
+            proxy.On("ClearSkywriterBoard", () =>
+            {
+                _skywriterBoardModel._SharedSkywriterContent = String.Empty;
+            });
+
+            return proxy;
         }
     }
 

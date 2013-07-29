@@ -13,7 +13,7 @@ namespace Skywriter.Webservices
 {
     public class UserWebservices
     {
-        private static readonly String PASSWORD_SALT = "cher";
+        private static readonly String PASSWORD_SALT = "";
 
         public static String CLIPBOARD_URL;
 
